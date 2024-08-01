@@ -1,0 +1,381 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2636
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Roman;\f1\fswiss\fcharset0 Helvetica;\f2\fmodern\fcharset0 Courier;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue233;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c93333;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10720\viewh7820\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0  <- subset(x = 
+\f0 \expnd0\expndtw0\kerning0
+OM_Lympho
+\f1 \kerning1\expnd0\expndtw0 , idents = c("CD4+ T", "NA CD4+ T"))
+\f0 \expnd0\expndtw0\kerning0
+\
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0  <- ScaleData(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0 , features = VariableFeatures(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0 ))\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0  <- RunPCA(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0 , features = VariableFeatures(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0 ), npcs = 100)\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0  <- RunUMAP(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0 , reduction = "pca", dims = 1:50)\
+
+\f0 \expnd0\expndtw0\kerning0
+ElbowPlot(OM_CD4_T, ndims=50)\
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0  <- FindNeighbors(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0 , dims = 1:8)\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0  <- FindClusters(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0 , resolution = 0.2)\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0  <- RunUMAP(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0 , dims = 1:8)\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 DimPlot(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0 )\
+DimPlot(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0 , split.by = "Sample")\
+\pard\pardeftab720\partightenfactor0
+
+\f0 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0 _markers <- FindAllMarkers(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0 , only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f1 \kerning1\expnd0\expndtw0 _markers %>%\
+    group_by(cluster) %>%\
+    slice_max(n = 2, order_by = avg_log2FC)\
+\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_CD4_T
+\f2\fs26 _markers %>%\
+\pard\pardeftab720\partightenfactor0
+\cf0     {\field{\*\fldinst{HYPERLINK "https://dplyr.tidyverse.org/reference/group_by.html"}}{\fldrslt \cf2 \ul \ulc2 group_by}}(cluster) %>%\
+    {\field{\*\fldinst{HYPERLINK "https://dplyr.tidyverse.org/reference/top_n.html"}}{\fldrslt \cf2 \ul \ulc2 top_n}}(n = 10, wt = avg_log2FC) -> 
+\f0\fs24 OM_CD4_T
+\f2\fs26 _top10\
+{\field{\*\fldinst{HYPERLINK "https://satijalab.org/seurat/reference/DoHeatmap.html"}}{\fldrslt \cf2 \ul \ulc2 DoHeatmap}}(
+\f0\fs24 OM_CD4_T
+\f2\fs26 , features = 
+\f0\fs24 OM_CD4_T
+\f2\fs26 _top10$gene) + {\field{\*\fldinst{HYPERLINK "https://satijalab.org/seurat/reference/SeuratTheme.html"}}{\fldrslt \cf2 \ul \ulc2 NoLegend}}()
+\f0\fs24 \
+\
+## DEG analysis\
+OM_CD4_T <- subset(OM_Lympho, idents = c("CD4+ T", "NA CD4+ T"))\
+DimPlot(OM_CD4_T, label = T)\
+OM_CD4_T_DEGs <- FindMarkers(OM_CD4_T, group.by = "Sample", ident.1 = "OM_MHO", ident.2 = "OM_MUO")\
+OM_CD4_T_DEGs <- subset(OM_CD4_T_DEGs, p_val_adj < 0.05)\
+write.table(OM_CD4_T_DEGs, file="OM_CD4_T_DEGs.csv", sep=",")\
+\
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0  <- subset(x = 
+\f0 \expnd0\expndtw0\kerning0
+OM_Lympho
+\f1 \kerning1\expnd0\expndtw0 , idents = c("CD8+ T"))
+\f0 \expnd0\expndtw0\kerning0
+\
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0  <- ScaleData(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0 , features = VariableFeatures(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0 ))\
+\pard\pardeftab720\partightenfactor0
+
+\f0 \cf0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0  <- RunPCA(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0 , features = VariableFeatures(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0 ), npcs = 100)\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0  <- RunUMAP(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0 , reduction = "pca", dims = 1:50)\
+
+\f0 \expnd0\expndtw0\kerning0
+ElbowPlot(OM_CD8_T, ndims=50)\
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0  <- FindNeighbors(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0 , dims = 1:8)\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0  <- FindClusters(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0 , resolution = 0.2)\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0  <- RunUMAP(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0 , dims = 1:8)\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\pardirnatural\partightenfactor0
+\cf0 DimPlot(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0 )\
+DimPlot(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0 , split.by = "Sample")\
+\pard\pardeftab720\partightenfactor0
+
+\f0 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\pardirnatural\partightenfactor0
+\cf0 OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0 _markers <- FindAllMarkers(
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0 , only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f1 \kerning1\expnd0\expndtw0 _markers %>%\
+    group_by(cluster) %>%\
+    slice_max(n = 2, order_by = avg_log2FC)\
+\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_CD8_T
+\f2\fs26 _markers %>%\
+\pard\pardeftab720\partightenfactor0
+\cf0     {\field{\*\fldinst{HYPERLINK "https://dplyr.tidyverse.org/reference/group_by.html"}}{\fldrslt \cf2 \ul \ulc2 group_by}}(cluster) %>%\
+    {\field{\*\fldinst{HYPERLINK "https://dplyr.tidyverse.org/reference/top_n.html"}}{\fldrslt \cf2 \ul \ulc2 top_n}}(n = 10, wt = avg_log2FC) -> 
+\f0\fs24 OM_CD8_T
+\f2\fs26 _top10\
+{\field{\*\fldinst{HYPERLINK "https://satijalab.org/seurat/reference/DoHeatmap.html"}}{\fldrslt \cf2 \ul \ulc2 DoHeatmap}}(
+\f0\fs24 OM_CD8_T
+\f2\fs26 , features = 
+\f0\fs24 OM_CD8_T
+\f2\fs26 _top10$gene) + {\field{\*\fldinst{HYPERLINK "https://satijalab.org/seurat/reference/SeuratTheme.html"}}{\fldrslt \cf2 \ul \ulc2 NoLegend}}()\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs24 \cf0 ## DEG analysis\
+OM_CD8_T <- subset(OM_Lympho, idents = c("CD8+ T"))\
+DimPlot(OM_CD8_T, label = T)\
+OM_CD8_T_DEGs <- FindMarkers(OM_CD8_T, group.by = "Sample", ident.1 = "OM_MHO", ident.2 = "OM_MUO")\
+OM_CD8_T_DEGs <- subset(OM_CD8_T_DEGs, p_val_adj < 0.05)\
+write.table(OM_CD8_T_DEGs, file="OM_CD8_T_DEGs.csv", sep=",")\
+\
+\
+## DEG analysis\
+OM_ILCs <- subset(OM_Lympho, idents = c("ILC-like"))\
+DimPlot(OM_ILCs, label = T)\
+OM_ILCs_DEGs <- FindMarkers(OM_ILCs, group.by = "Sample", ident.1 = "OM_MHO", ident.2 = "OM_MUO")\
+OM_ILCs_DEGs <- subset(OM_ILCs_DEGs, p_val_adj < 0.05)\
+write.table(OM_ILCs_DEGs, file="OM_ILCs_DEGs.csv", sep=",")\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs24 \cf0 OM_B_Cells 
+\f1 \kerning1\expnd0\expndtw0 <- subset(x = 
+\f0 \expnd0\expndtw0\kerning0
+OM_Lympho
+\f1 \kerning1\expnd0\expndtw0 , idents = c("B Cell", "B1 Cell"))
+\f0 \expnd0\expndtw0\kerning0
+\
+DimPlot(OM_B_Cells, label = T)\
+OM_B_Cells_DEGs <- FindMarkers(OM_B_Cells, group.by = "Sample", ident.1 = "OM_MHO", ident.2 = "OM_MUO")\
+OM_B_Cells_DEGs <- subset(OM_B_Cells_DEGs, p_val_adj < 0.05)\
+write.table(OM_B_Cells_DEGs, file="OM_B_Cells_DEGs.csv", sep=",")\
+\
+\
+\
+OM_GD_Cells
+\f1 \kerning1\expnd0\expndtw0  <- ScaleData(
+\f0 \expnd0\expndtw0\kerning0
+OM_GD_Cells
+\f1 \kerning1\expnd0\expndtw0 , features = VariableFeatures(
+\f0 \expnd0\expndtw0\kerning0
+OM_GD_Cells
+\f1 \kerning1\expnd0\expndtw0 ))\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_GD_Cells
+\f1 \kerning1\expnd0\expndtw0  <- RunPCA(
+\f0 \expnd0\expndtw0\kerning0
+OM_GD_Cells
+\f1 \kerning1\expnd0\expndtw0 , features = VariableFeatures(
+\f0 \expnd0\expndtw0\kerning0
+OM_GD_Cells
+\f1 \kerning1\expnd0\expndtw0 ), npcs = 100)\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_ILCs
+\f1 \kerning1\expnd0\expndtw0  <- RunUMAP(
+\f0 \expnd0\expndtw0\kerning0
+OM_GD_Cells
+\f1 \kerning1\expnd0\expndtw0 , reduction = "pca", dims = 1:50)\
+
+\f0 \expnd0\expndtw0\kerning0
+ElbowPlot(OM_GD_Cells, ndims=50)\
+\
+OM_GD_Cells
+\f1 \kerning1\expnd0\expndtw0  <- FindNeighbors(
+\f0 \expnd0\expndtw0\kerning0
+OM_ILCs
+\f1 \kerning1\expnd0\expndtw0 , dims = 1:4)\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_GD_Cells
+\f1 \kerning1\expnd0\expndtw0  <- FindClusters(
+\f0 \expnd0\expndtw0\kerning0
+OM_ILCs
+\f1 \kerning1\expnd0\expndtw0 , resolution = 0.2)\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_GD_Cells
+\f1 \kerning1\expnd0\expndtw0  <- RunUMAP(
+\f0 \expnd0\expndtw0\kerning0
+OM_ILCs
+\f1 \kerning1\expnd0\expndtw0 , dims = 1:4)\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\pardirnatural\partightenfactor0
+\cf0 DimPlot(
+\f0 \expnd0\expndtw0\kerning0
+OM_GD_Cells
+\f1 \kerning1\expnd0\expndtw0 )\
+DimPlot(
+\f0 \expnd0\expndtw0\kerning0
+OM_GD_Cells
+\f1 \kerning1\expnd0\expndtw0 , split.by = "Sample")\
+\pard\pardeftab720\partightenfactor0
+
+\f0 \cf0 \expnd0\expndtw0\kerning0
+\
+OM_ILCs
+\f1 \kerning1\expnd0\expndtw0 _markers <- FindAllMarkers(
+\f0 \expnd0\expndtw0\kerning0
+OM_ILCs
+\f1 \kerning1\expnd0\expndtw0 , only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)\
+
+\f0 \expnd0\expndtw0\kerning0
+OM_ILCs
+\f1 \kerning1\expnd0\expndtw0 _markers %>%\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\pardirnatural\partightenfactor0
+\cf0     group_by(cluster) %>%\
+    slice_max(n = 2, order_by = avg_log2FC)\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f0 \cf0 \expnd0\expndtw0\kerning0
+OM_ILCs
+\f2\fs26 _markers %>%\
+    {\field{\*\fldinst{HYPERLINK "https://dplyr.tidyverse.org/reference/group_by.html"}}{\fldrslt \cf2 \ul \ulc2 group_by}}(cluster) %>%\
+    {\field{\*\fldinst{HYPERLINK "https://dplyr.tidyverse.org/reference/top_n.html"}}{\fldrslt \cf2 \ul \ulc2 top_n}}(n = 10, wt = avg_log2FC) -> 
+\f0\fs24 OM_ILCs
+\f2\fs26 _top10\
+\pard\pardeftab720\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://satijalab.org/seurat/reference/DoHeatmap.html"}}{\fldrslt \cf2 \ul \ulc2 DoHeatmap}}(
+\f0\fs24 OM_ILCs
+\f2\fs26 , features = 
+\f0\fs24 OM_ILCs
+\f2\fs26 _top10$gene) + {\field{\*\fldinst{HYPERLINK "https://satijalab.org/seurat/reference/SeuratTheme.html"}}{\fldrslt \cf2 \ul \ulc2 NoLegend}}()\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs24 \cf0 \
+OM_GD_Cells 
+\f1 \kerning1\expnd0\expndtw0 <- subset(x = 
+\f0 \expnd0\expndtw0\kerning0
+OM_Lympho
+\f1 \kerning1\expnd0\expndtw0 , idents = c("GD T"))
+\f0 \expnd0\expndtw0\kerning0
+\
+DimPlot(OM_GD_Cells, label = T)\
+OM_GD_Cells_DEGs <- FindMarkers(OM_GD_Cells, group.by = "Sample", ident.1 = "OM_MHO", ident.2 = "OM_MUO")\
+OM_GD_Cells_DEGs <- subset(OM_GD_Cells_DEGs, p_val_adj < 0.05)\
+write.table(OM_GD_Cells_DEGs, file="OM_GD_Cells_DEGs.csv", sep=",")\
+\
+\
+OM_NK_Cells 
+\f1 \kerning1\expnd0\expndtw0 <- subset(x = 
+\f0 \expnd0\expndtw0\kerning0
+OM_Lympho
+\f1 \kerning1\expnd0\expndtw0 , idents = c("mNK", "NK-like"))
+\f0 \expnd0\expndtw0\kerning0
+\
+DimPlot(OM_NK_Cells, label = T)\
+OM_NK_Cells_DEGs <- FindMarkers(OM_NK_Cells, group.by = "Sample", ident.1 = "OM_MHO", ident.2 = "OM_MUO")\
+OM_NK_Cells_DEGs <- subset(OM_NK_Cells_DEGs, p_val_adj < 0.05)\
+write.table(OM_NK_Cells_DEGs, file="OM_NK_Cells_DEGs.csv", sep=",")\
+\
+OM_NK_like_Cells <- subset(x = OM_Lympho, idents = c("NK-like"))\
+DimPlot(OM_NK_like_Cells, label = T)\
+OM_NK_like_Cells_DEGs <- FindMarkers(OM_NK_like_Cells, group.by = "Sample", ident.1 = "OM_MHO", ident.2 = "OM_MUO")\
+OM_NK_like_Cells_DEGs <- subset(OM_NK_like_Cells_DEGs, p_val_adj < 0.05)\
+write.table(OM_NK_like_Cells_DEGs, file="OM_NK_like_Cells_DEGs.csv", sep=",")\
+\
+OM_mNK_Cells 
+\f1 \kerning1\expnd0\expndtw0 <- subset(x = 
+\f0 \expnd0\expndtw0\kerning0
+OM_Lympho
+\f1 \kerning1\expnd0\expndtw0 , idents = c("mNK"))
+\f0 \expnd0\expndtw0\kerning0
+\
+DimPlot(OM_mNK_Cells, label = T)\
+OM_mNK_Cells_DEGs <- FindMarkers(OM_mNK_Cells, group.by = "Sample", ident.1 = "OM_MHO", ident.2 = "OM_MUO")\
+OM_mNK_Cells_DEGs <- subset(OM_mNK_Cells_DEGs, p_val_adj < 0.05)\
+write.table(OM_mNK_Cells_DEGs, file="OM_mNK_Cells_DEGs.csv", sep=",")\
+\
+}
