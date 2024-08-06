@@ -125,22 +125,22 @@ OM.markers %>%
   top_n(n = 5, wt = avg_log2FC) -> OM_top10
 DoHeatmap(OM_merge, features = OM_top10$gene) + NoLegend()
 
-SQ_IDs <- c('PDGFRA+1', 'PDGFRA+2', 'PDGFRA+3', 'T cells 1' , 'Myeloid cells 1' , 'NK cells', 'ECs' , 'PI16+' , 'SMCs', 'T cells 2', 'Myeloid cells 2', 'B cells')
+SQ_IDs <- c('PDGFRA+1', 'PDGFRA+2', 'PDGFRA+3', 'T cells 1' , 'Myeloid cells 1' , 'NK cells', 'ECs' , 'PI16+' , 'Myofibroblasts', 'T cells 2', 'Myeloid cells 2', 'B cells')
 names(SQ_IDs) <- levels(SQ_merge)
 SQ_merge <- RenameIdents(SQ_merge, SQ_IDs)
 DimPlot(SQ_merge, reduction = "umap", pt.size = 0.5) + NoLegend()
 
-SQ_IDs <- c('PDGFRA+', 'PDGFRA+', 'PDGFRA+', 'T cells' , 'Myeloid cells' , 'NK cells', 'ECs' , 'PI16+' , 'SMCs', 'T cells', 'Myeloid cells', 'B cells')
+SQ_IDs <- c('PDGFRA+', 'PDGFRA+', 'PDGFRA+', 'T cells' , 'Myeloid cells' , 'NK cells', 'ECs' , 'PI16+' , 'Myofibroblasts', 'T cells', 'Myeloid cells', 'B cells')
 names(SQ_IDs) <- levels(SQ_merge)
 SQ_merge <- RenameIdents(SQ_merge, SQ_IDs)
 DimPlot(SQ_merge, reduction = "umap", pt.size = 0.5)
 
-OM_IDs <- c('T cells', 'PDGFRA+ 1', 'MSLN+ 1', 'PI16+' , 'PDGFRA+ 2' , 'MSLN+ 2', 'Myeloid cells' , 'NK cells' , 'PDGFRA+ 3', 'ECs', 'SMCs', 'B cells', 'PDGFRA+ 4', 'MSLN+ 3', 'Plasma cells')
+OM_IDs <- c('T cells', 'PDGFRA+ 1', 'MSLN+ 1', 'PI16+' , 'PDGFRA+ 2' , 'MSLN+ 2', 'Myeloid cells' , 'NK cells' , 'PDGFRA+ 3', 'ECs', 'Myofibroblasts', 'B cells', 'PDGFRA+ 4', 'MSLN+ 3', 'Plasma cells')
 names(OM_IDs) <- levels(OM_merge)
 OM_merge <- RenameIdents(OM_merge, OM_IDs)
 DimPlot(OM_merge, reduction = "umap", pt.size = 0.5) + NoLegend()
 
-OM_IDs <- c('T cells', 'PDGFRA+', 'MSLN+', 'PI16+' , 'PDGFRA+' , 'MSLN+', 'Myeloid cells' , 'NK cells' , 'PDGFRA+', 'ECs', 'SMCs', 'B cells', 'PDGFRA+', 'MSLN+', 'Plasma cells')
+OM_IDs <- c('T cells', 'PDGFRA+', 'MSLN+', 'PI16+' , 'PDGFRA+' , 'MSLN+', 'Myeloid cells' , 'NK cells' , 'PDGFRA+', 'ECs', 'Myofibroblasts', 'B cells', 'PDGFRA+', 'MSLN+', 'Plasma cells')
 names(OM_IDs) <- levels(OM_merge)
 OM_merge <- RenameIdents(OM_merge, OM_IDs)
 DimPlot(OM_merge, reduction = "umap", pt.size = 0.5)
@@ -311,13 +311,13 @@ OM_EC_DEGs <- FindMarkers(OM_EC, group.by = "Sample", ident.1 = "OM_MHO", ident.
 OM_EC_DEGs <- subset(OM_EC_DEGs, p_val_adj < 0.05)
 write.table(OM_EC_DEGs, file="OM_EC_DEGs.csv", sep=",")
 
-OM_SMC <- subset(OM_merge, idents = c("SMCs"))
+OM_SMC <- subset(OM_merge, idents = c("Myofibroblasts"))
 DimPlot(OM_SMC, label = T)
 OM_SMC_DEGs <- FindMarkers(OM_SMC, group.by = "Sample", ident.1 = "OM_MHO", ident.2 = "OM_MUO")
 OM_SMC_DEGs <- subset(OM_SMC_DEGs, p_val_adj < 0.05)
 write.table(OM_SMC_DEGs, file="OM_SMC_DEGs.csv", sep=",")
 
-SQ_SMC <- subset(SQ_merge, idents = c("SMCs"))
+SQ_SMC <- subset(SQ_merge, idents = c("Myofibroblasts"))
 DimPlot(SQ_SMC, label = T)
 SQ_SMC_DEGs <- FindMarkers(SQ_SMC, group.by = "Sample", ident.1 = "SQ_MHO", ident.2 = "SQ_MUO")
 SQ_SMC_DEGs <- subset(SQ_SMC_DEGs, p_val_adj < 0.05)

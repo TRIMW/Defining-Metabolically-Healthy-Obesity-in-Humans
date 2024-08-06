@@ -17,13 +17,13 @@ DimPlot(OM_MHO_merge_copy)
 DimPlot(OM_MUO_merge_copy)
 
 ## Rename Clusters
-OM_MHO_MUO_IDs <- c("T cells", "PDGFRA+", "T cells", "MSLN+", "PI16+", "PDGFRA+", "MSLN+", "Myeloid cells", "Myeloid cells", "NK cells", "PDGFRA+", "ECs", "SMCs", "B cells", "PDGFRA+", "MSLN+", "Plasma cells")
+OM_MHO_MUO_IDs <- c("T cells", "PDGFRA+", "T cells", "MSLN+", "PI16+", "PDGFRA+", "MSLN+", "Myeloid cells", "Myeloid cells", "NK cells", "PDGFRA+", "ECs", "Myofibroblasts", "B cells", "PDGFRA+", "MSLN+", "Plasma cells")
 names(OM_MHO_MUO_IDs) <- levels(OM_MHO_merge_copy)
 OM_MHO_merge_copy <- RenameIdents(OM_MHO_merge_copy, OM_MHO_MUO_IDs)
 DimPlot(OM_MHO_merge_copy, reduction = "umap", label = TRUE, pt.size = 0.5) + NoLegend()
 DimPlot(OM_MHO_merge_copy, reduction = "umap", pt.size = 0.5, label = T) + NoLegend()
 
-OM_MHO_MUO_IDs <- c("T cells", "PDGFRA+", "T cells", "MSLN+", "PI16+", "PDGFRA+", "MSLN+", "Myeloid cells", "Myeloid cells", "NK cells", "PDGFRA+", "ECs", "SMCs", "B cells", "PDGFRA+", "MSLN+", "Plasma cells")
+OM_MHO_MUO_IDs <- c("T cells", "PDGFRA+", "T cells", "MSLN+", "PI16+", "PDGFRA+", "MSLN+", "Myeloid cells", "Myeloid cells", "NK cells", "PDGFRA+", "ECs", "Myofibroblasts", "B cells", "PDGFRA+", "MSLN+", "Plasma cells")
 names(OM_MHO_MUO_IDs) <- levels(OM_MUO_merge_copy)
 OM_MUO_merge_copy <- RenameIdents(OM_MUO_merge_copy, OM_MHO_MUO_IDs)
 DimPlot(OM_MUO_merge_copy, reduction = "umap", label = TRUE, pt.size = 0.5) + NoLegend()
@@ -83,7 +83,7 @@ test_OM_MHO <- OM_MHO_All.con2
 test_OM_MHO <- data.frame(test_OM_MHO %>% group_by(vector) %>% top_n(5,weight_sc))
 
 ## then highlight cells of interest
-cells.of.interest <- c('MSLN+','PI16+','PDGFRA+','SMCs', 'ECs', 'Myeloid cells', 'B cells', 'Plasma cells', 'T cells', 'NK cells')
+cells.of.interest <- c('MSLN+','PI16+','PDGFRA+','Myofibroblasts', 'ECs', 'Myeloid cells', 'B cells', 'Plasma cells', 'T cells', 'NK cells')
 
 ## Then build four charts for these relationships
 # Using edgeweights from normalized slot:
@@ -163,7 +163,7 @@ test_MUO_OM <- OM_MUO_All.con2
 test_MUO_OM <- data.frame(test_MUO_OM %>% group_by(vector) %>% top_n(5,weight_sc))
 
 ## then highlight cells of interest
-cells.of.interest <- c('MSLN+','PI16+','PDGFRA+','SMCs', 'ECs', 'Myeloid cells', 'B cells', 'Plasma cells', 'T cells', 'NK cells')
+cells.of.interest <- c('MSLN+','PI16+','PDGFRA+','Myofibroblasts', 'ECs', 'Myeloid cells', 'B cells', 'Plasma cells', 'T cells', 'NK cells')
 
 ## Then build four charts for these relationships
 # Using edgeweights from normalized slot:

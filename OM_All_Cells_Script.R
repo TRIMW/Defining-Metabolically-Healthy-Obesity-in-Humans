@@ -1,10 +1,10 @@
 ##Omentum processing:
 
 ##Identifying and labelling clusters - Whole Sample
-OM_levels <- c(OM_levels <- c('PreAd1', 'PreAd2', 'PreAd3', 'PreAd4', 'APCs', 'MSC1s', 'MSC2s', 'MSC3s', 'SMCs', 'ECs', 'T cells', 'B cells', '?', 'NK cells', 'Myeloid cells'))
+OM_levels <- c(OM_levels <- c('PreAd1', 'PreAd2', 'PreAd3', 'PreAd4', 'APCs', 'MSC1s', 'MSC2s', 'MSC3s', 'Myofibroblasts', 'ECs', 'T cells', 'B cells', '?', 'NK cells', 'Myeloid cells'))
 Idents(OM) <- factor(Idents(OM), levels= OM_levels)
 
-OM_new.cluster.ids <- c('PDGFRA+', 'PDGFRA+', 'PDGFRA+', 'PDGFRA+', 'PI16+', 'MSLN+', 'MSLN+', 'MSLN+', 'SMCs', 'ECs', 'T cells', 'B cells', 'Plasma cells', 'NK cells', 'Myeloid cells')
+OM_new.cluster.ids <- c('PDGFRA+', 'PDGFRA+', 'PDGFRA+', 'PDGFRA+', 'PI16+', 'MSLN+', 'MSLN+', 'MSLN+', 'Myofibroblasts', 'ECs', 'T cells', 'B cells', 'Plasma cells', 'NK cells', 'Myeloid cells')
 names(OM_new.cluster.ids) <- levels(OM)
 OM <- RenameIdents(OM, OM_new.cluster.ids)
 
@@ -12,7 +12,7 @@ OM <- RenameIdents(OM, OM_new.cluster.ids)
 OM_colors <- c("PDGFRA+" = "coral",
                "PI16+" = "#94d2bd",
                "MSLN+" = "violet",
-               "SMCs" = "dodgerblue",
+               "Myofibroblasts" = "dodgerblue",
                "ECs" = "#e9d8a6",
                "T cells" = "#ee9b00",
                "B cells" = "#ca6702", 
@@ -38,7 +38,7 @@ vln_plot <- VlnPlot(OM,
 OM_colors <- c("PDGFRA+" = "coral",
                "PI16+" = "#94d2bd",
                "MSLN+" = "violet",
-               "SMCs" = "dodgerblue",
+               "Myofibroblasts" = "dodgerblue",
                "ECs" = "#e9d8a6",
                "T cells" = "#ee9b00",
                "B cells" = "#ca6702", 
@@ -69,7 +69,7 @@ Idents(OM_MUO_Copy) <- "seurat_clusters"
 DimPlot(OM_MUO_Copy)
 
 ##Relabel Clusters MHO then MUO (Same code)
-OM_new.cluster.ids <- c("T cells", "PDGFRA+", "T cells", "MSLN+", "PI16+", "PDGFRA+", "MSLN+", "Myeloid cells", "Myeloid cells", "NK cells", "PDGFRA+", "ECs", "SMCs", "B cells", "PDGFRA+", "MSLN+", "Plasma cells")
+OM_new.cluster.ids <- c("T cells", "PDGFRA+", "T cells", "MSLN+", "PI16+", "PDGFRA+", "MSLN+", "Myeloid cells", "Myeloid cells", "NK cells", "PDGFRA+", "ECs", "Myofibroblasts", "B cells", "PDGFRA+", "MSLN+", "Plasma cells")
 
 names(OM_new.cluster.ids) <- levels(OM_MHO_Copy)
 
@@ -80,7 +80,7 @@ names(OM_new.cluster.ids) <- levels(OM_MUO_Copy)
 OM_MUO_Copy <- RenameIdents(OM_MUO_Copy, OM_new.cluster.ids)
 
 ##Re-order clusters
-OM_levels <- c('PDGFRA+', 'PI16+', 'MSLN+', 'ECs', 'SMCs', 'NK cells', 'T cells', 'B cells', 'Plasma cells', 'Myeloid cells')
+OM_levels <- c('PDGFRA+', 'PI16+', 'MSLN+', 'ECs', 'Myofibroblasts', 'NK cells', 'T cells', 'B cells', 'Plasma cells', 'Myeloid cells')
 
 Idents(OM_MHO_Copy) <- factor(Idents(OM_MHO_Copy), levels= OM_levels)
 

@@ -15,7 +15,7 @@ Idents(SQ_MUO_Copy) <- "seurat_clusters"
 DimPlot(SQ_MUO_Copy)
 
 ##Relabel Clusters MHO then MUO (Same code)
-SQ_new.cluster.ids <- c("PDGFRA+", "PDGFRA+", "PDGFRA+", "T cells", "Myeloid cells", "NK cells", "ECs", "PI16+", "SMCs", "T cells", "Myeloid cells", "B cells")
+SQ_new.cluster.ids <- c("PDGFRA+", "PDGFRA+", "PDGFRA+", "T cells", "Myeloid cells", "NK cells", "ECs", "PI16+", "Myofibroblasts", "T cells", "Myeloid cells", "B cells")
 
 names(SQ_new.cluster.ids) <- levels(SQ_MHO_Copy)
 
@@ -32,7 +32,7 @@ SQ <- RenameIdents(SQ, SQ_new.cluster.ids)
 ##Colour Scheme
 SQ_colors <- c("PDGFRA+" = "coral",
                "PI16+" = "#94d2bd",
-               "SMCs" = "dodgerblue",
+               "Myofibroblasts" = "dodgerblue",
                "ECs" = "#e9d8a6",
                "T cells" = "#ee9b00",
                "B cells" = "#ca6702", 
@@ -40,7 +40,7 @@ SQ_colors <- c("PDGFRA+" = "coral",
                "Myeloid cells" = "#ae2012")
 
 ##Re-order clusters
-SQ_levels <- c('PDGFRA+', 'PI16+', 'SMCs', 'ECs', 'T cells', 'NK cells', 'B cells', 'Myeloid cells')
+SQ_levels <- c('PDGFRA+', 'PI16+', 'Myofibroblasts', 'ECs', 'T cells', 'NK cells', 'B cells', 'Myeloid cells')
 
 Idents(SQ) <- factor(Idents(SQ), levels= SQ_levels)
 
@@ -56,14 +56,15 @@ SCpubr::do_DimPlot(sample = SQ_MUO_Copy,
 
 
 vln_plot <- VlnPlot(SQ, 
-                    features = c("CD14", "JCHAIN", "FCGR3A", "CD3E", "PTPRC", "VWF", "RGS5", "PI16", "PDGFRA"),
+                    features = c("CD14", "JCHAIN", "FCGR3A", "CD3E", "PTPRC", "VWF", "ACTA2", "PI16", "PDGFRA"),
                     stack = TRUE, 
                     flip = TRUE, 
-                    cols = c("PDGFRA" = "coral", "PI16" = "#94D2BD", "RGS5" = "dodgerblue", 
+                    cols = c("PDGFRA" = "coral", "PI16" = "#94D2BD", "ACTA2" = "dodgerblue", 
                              "VWF" = "#e9d8a6", "PTPRC" = "yellow", "CD3E" = "#ee9b00", 
                              "JCHAIN" = "#ca6702", "FCGR3A" = "#005f73", "CD14" = "#ae2012"))
 
-
+vln_plot <- vln_plot + theme(legend.position = "none")
+print(vln_plot)
 
 SQ_MHO_Cells <- SQ_MHO_Copy@active.ident %>% as.data.table
 View(SQ_MHO_Cells)

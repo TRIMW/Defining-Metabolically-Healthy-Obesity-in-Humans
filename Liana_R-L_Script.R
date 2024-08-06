@@ -25,7 +25,7 @@ dplyr::glimpse(liana_OM_MUO)
 
 liana_OM_MUO %>%
   liana_dotplot(source_groups = c('Myeloid cells'),
-                target_groups = c('PDGFRA+', 'PI16+', 'ECs', 'SMCs', 'NK cells', 'T cells', 'B cells', 'Plasma cells', 'MSLN+'),
+                target_groups = c('PDGFRA+', 'PI16+', 'ECs', 'Myofibroblasts', 'NK cells', 'T cells', 'B cells', 'Plasma cells', 'MSLN+'),
                 ntop = 20)
 
 liana_trunc <- liana_OM_MUO %>%
@@ -34,5 +34,5 @@ liana_trunc <- liana_OM_MUO %>%
 
 
 p <- chord_freq(liana_trunc,
-                source_groups = c('PDGFRA+', 'PI16+', 'ECs', 'SMCs', 'NK cells', 'T cells', 'B cells', 'Plasma cells', 'Myeloid cells'),
+                source_groups = c('PDGFRA+', 'PI16+', 'ECs', 'Myofibroblasts', 'NK cells', 'T cells', 'B cells', 'Plasma cells', 'Myeloid cells'),
                 target_groups = c('MSLN+'))

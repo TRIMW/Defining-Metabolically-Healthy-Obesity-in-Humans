@@ -1,1 +1,1 @@
-ggsave("OM_LAM_MTs_Vln.tiff", path = '/Users/willtrim/Library/CloudStorage/OneDrive-TCDUD.onmicrosoft.com/Post doc Trinity Harvard/Data/Two Depots Study/Data/scRNAseq - BTM/R Image Outputs/', dpi=500)
+ggsave("SQ_Vln.tiff", path = '/Users/willtrim/Library/CloudStorage/OneDrive-HarvardUniversity/Manuscripts & Conferences/Manuscripts/Metabolic Obesity/Data/scRNAseq/R Image Outputs/', dpi=500)

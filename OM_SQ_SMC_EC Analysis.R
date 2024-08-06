@@ -1,58 +1,58 @@
-##SQ Smooth muscle cells
-SQ_SMC <- ScaleData(SQ_SMC, features = VariableFeatures(SQ_SMC))
-SQ_SMC <- RunPCA(SQ_SMC, features = VariableFeatures(SQ_SMC), npcs = 100)
-SQ_SMC <- RunUMAP(SQ_SMC, reduction = "pca", dims = 1:50)
-ElbowPlot(SQ_SMC, ndims=50)
+##SQ myofibroblasts
+SQ_Myofibroblast <- ScaleData(SQ_Myofibroblast, features = VariableFeatures(SQ_Myofibroblast))
+SQ_Myofibroblast <- RunPCA(SQ_Myofibroblast, features = VariableFeatures(SQ_Myofibroblast), npcs = 100)
+SQ_Myofibroblast <- RunUMAP(SQ_Myofibroblast, reduction = "pca", dims = 1:50)
+ElbowPlot(SQ_Myofibroblast, ndims=50)
 
-SQ_SMC <- FindNeighbors(SQ_SMC, dims = 1:10)
-SQ_SMC <- FindClusters(SQ_SMC, resolution = 0.2)
-SQ_SMC <- RunUMAP(SQ_SMC, dims = 1:10)
-DimPlot(SQ_SMC)
+SQ_Myofibroblast <- FindNeighbors(SQ_Myofibroblast, dims = 1:10)
+SQ_Myofibroblast <- FindClusters(SQ_Myofibroblast, resolution = 0.2)
+SQ_Myofibroblast <- RunUMAP(SQ_Myofibroblast, dims = 1:10)
+DimPlot(SQ_Myofibroblast)
 
-SQ_SMC_markers <- FindAllMarkers(SQ_SMC, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
-SQ_SMC_markers %>%
+SQ_Myofibroblast_markers <- FindAllMarkers(SQ_Myofibroblast, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
+SQ_Myofibroblast_markers %>%
   group_by(cluster) %>%
   slice_max(n = 2, order_by = avg_log2FC)
 
-SQ_SMC_markers %>%
+SQ_Myofibroblast_markers %>%
   group_by(cluster) %>%
-  top_n(n = 10, wt = avg_log2FC) -> SQ_SMC_top10
-DoHeatmap(SQ_SMC, features = SQ_SMC_top10$gene) + NoLegend()
+  top_n(n = 10, wt = avg_log2FC) -> SQ_Myofibroblast_top10
+DoHeatmap(SQ_Myofibroblast, features = SQ_Myofibroblast_top10$gene) + NoLegend()
 
-SQ_SMC_DEGs <- FindMarkers(SQ_SMC, group.by = "Sample", ident.1 = "SQ_MHO", ident.2 = "SQ_MUO")
-SQ_SMC_DEGs <- subset(SQ_SMC_DEGs, p_val_adj < 0.05)
-write.table(SQ_SMC_DEGs, file="SQ_SMC_DEGs.csv", sep=",")
+SQ_Myofibroblast_DEGs <- FindMarkers(SQ_Myofibroblast, group.by = "Sample", ident.1 = "SQ_MHO", ident.2 = "SQ_MUO")
+SQ_Myofibroblast_DEGs <- subset(SQ_Myofibroblast_DEGs, p_val_adj < 0.05)
+write.table(SQ_Myofibroblast_DEGs, file="SQ_Myofibroblast_DEGs.csv", sep=",")
 
-vln_plot <- VlnPlot(SQ_SMC, features = c("MTRNR2L1", "C1R", "ACTG2", "TXNIP", "TPM2", "RHOB", "MT1M", "C1S", "SOCS3", "NMB"), stack = TRUE, flip = TRUE)
+vln_plot <- VlnPlot(SQ_Myofibroblast, features = c("MTRNR2L1", "C1R", "ACTG2", "TXNIP", "TPM2", "RHOB", "MT1M", "C1S", "SOCS3", "NMB"), stack = TRUE, flip = TRUE)
 vln_plot <- vln_plot + theme(legend.position = "none")
 print(vln_plot)
 
 ##Om Smooth muscle cells
-OM_SMC <- ScaleData(OM_SMC, features = VariableFeatures(OM_SMC))
-OM_SMC <- RunPCA(OM_SMC, features = VariableFeatures(OM_SMC), npcs = 100)
-OM_SMC <- RunUMAP(OM_SMC, reduction = "pca", dims = 1:50)
-ElbowPlot(OM_SMC, ndims=50)
+OM_Myofibroblast <- ScaleData(OM_Myofibroblast, features = VariableFeatures(OM_Myofibroblast))
+OM_Myofibroblast <- RunPCA(OM_Myofibroblast, features = VariableFeatures(OM_Myofibroblast), npcs = 100)
+OM_Myofibroblast <- RunUMAP(OM_Myofibroblast, reduction = "pca", dims = 1:50)
+ElbowPlot(OM_Myofibroblast, ndims=50)
 
-OM_SMC <- FindNeighbors(OM_SMC, dims = 1:8)
-OM_SMC <- FindClusters(OM_SMC, resolution = 0.2)
-OM_SMC <- RunUMAP(OM_SMC, dims = 1:8)
-DimPlot(OM_SMC)
+OM_Myofibroblast <- FindNeighbors(OM_Myofibroblast, dims = 1:8)
+OM_Myofibroblast <- FindClusters(OM_Myofibroblast, resolution = 0.2)
+OM_Myofibroblast <- RunUMAP(OM_Myofibroblast, dims = 1:8)
+DimPlot(OM_Myofibroblast)
 
-OM_SMC_markers <- FindAllMarkers(OM_SMC, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
-OM_SMC_markers %>%
+OM_Myofibroblast_markers <- FindAllMarkers(OM_Myofibroblast, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
+OM_Myofibroblast_markers %>%
   group_by(cluster) %>%
   slice_max(n = 2, order_by = avg_log2FC)
 
-OM_SMC_markers %>%
+OM_Myofibroblast_markers %>%
   group_by(cluster) %>%
-  top_n(n = 10, wt = avg_log2FC) -> OM_SMC_top10
-DoHeatmap(OM_SMC, features = OM_SMC_top10$gene) + NoLegend()
+  top_n(n = 10, wt = avg_log2FC) -> OM_Myofibroblast_top10
+DoHeatmap(OM_Myofibroblast, features = OM_Myofibroblast_top10$gene) + NoLegend()
 
-OM_SMC_DEGs <- FindMarkers(OM_SMC, group.by = "Sample", ident.1 = "OM_MHO", ident.2 = "OM_MUO")
-OM_SMC_DEGs <- subset(OM_SMC_DEGs, p_val_adj < 0.05)
-write.table(OM_SMC_DEGs, file="OM_SMC_DEGs.csv", sep=",")
+OM_Myofibroblast_DEGs <- FindMarkers(OM_Myofibroblast, group.by = "Sample", ident.1 = "OM_MHO", ident.2 = "OM_MUO")
+OM_Myofibroblast_DEGs <- subset(OM_Myofibroblast_DEGs, p_val_adj < 0.05)
+write.table(OM_Myofibroblast_DEGs, file="OM_Myofibroblast_DEGs.csv", sep=",")
 
-vln_plot <- VlnPlot(OM_SMC, features = c("JUN", "JUND", "ITLN", "S100A4", "SOD3", "IRI27", "RPS4Y1", "ECRG4", "MT1E"), stack = TRUE, flip = TRUE)
+vln_plot <- VlnPlot(OM_Myofibroblast, features = c("JUN", "JUND", "ITLN", "S100A4", "SOD3", "IRI27", "RPS4Y1", "ECRG4", "MT1E"), stack = TRUE, flip = TRUE)
 vln_plot <- vln_plot + theme(legend.position = "none")
 print(vln_plot)
 
