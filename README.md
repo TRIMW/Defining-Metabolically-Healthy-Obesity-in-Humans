@@ -1,5 +1,10 @@
 # A Transcriptional and Cellular Exploration of Obesity and Type-II Diabetes in Human Adipose Tissues 
-Resource for the study; Trim et al. () A Transcriptional and Cellular Exploration of Obesity and Type-II Diabetes in Human Adipose Tissues
+Resource for the study; Trim et al. (2026) A Transcriptional and Cellular Exploration of Obesity and Type-II Diabetes in Human Adipose Tissues
+
+# Link to Publication:
+
+# ABSTRACT:
+Obesity is tightly linked to metabolic disorders such as type-II diabetes (T2D), though a sub-population of individuals with obesity do not present with such morbidities. The biological factors conferring T2D vulnerability remain incompletely understood. We recruited 58 individuals with obesity with or without a clinical diagnosis of T2D (Ob+T2D and Ob). We profiled paired samples of omental and subcutaneous adipose by single cell RNA-sequencing (n=10), flow cytometry under basal and stimulated conditions (n=42), and histology (n=17). Flow cytometry and chemokine quantification were also performed in paired whole blood. We identified reprogramming of the omental stromal compartment, centred on mesothelial and endothelial cells, alongside contrasting innate T cell and macrophage phenotypes across depots. Mesothelial and IGFBP2+ cells exhibited a fibrotic, epithelial-mesenchymal transition-like phenotype, while omental endothelial cells exhibited a lipid-overload, inflammatory, antigen presentation profile in T2D. Omental and subcutaneous adipose innate T cells exhibited divergent inflammatory profiles between tissues. These findings reveal new insights into the pathophysiology of T2D in adipose tissue and identify compensatory networks within the tissues that could be exploited by targeted therapeutics.
 
 ## package versions used
 ### R (version 4.5.1 (2025-06-13)):
